@@ -1,0 +1,416 @@
+%
+% MAMA package (MAth MAcros)
+% a semantic package for mathematical symbols and fast latexing
+%
+% by Matteo Capucci <matteo.capucci@gmail.com>
+%
+
+% issues/questions/drafts
+\newenvironment{issue}{\color{red}}{\color{black}}
+
+% list environment for properties
+\newlist{named}{description}{3}
+\newcommand{\labelize}[1]{(\emph{#1})}
+\setlist[named]{
+  font=\labelize,
+}
+
+% equation environments
+\newenvironment{eqalign}{\begin{equation}\begin{aligned}}{\end{aligned}\end{equation}}
+\newenvironment{eqalign*}{\begin{equation*}\begin{aligned}}{\end{aligned}\end{equation*}}
+
+% commutative diagrams
+\newenvironment{diagram}{\begin{equation}\begin{tikzcd}[ampersand replacement=\&]}{\end{tikzcd}\end{equation}}
+\newenvironment{diagram*}{\begin{equation*}\begin{tikzcd}[ampersand replacement=\&]}{\end{tikzcd}\end{equation*}}
+
+\tikzset{
+  relation/.style={
+    draw=none,
+    every to/.append style={
+      edge node={node [sloped, allow upside down, auto=false]{$#1$}}}
+  }
+}
+
+% common arrow styles
+\tikzcdset{
+  mono/.code={
+    \pgfsetarrows{tikzcd to reversed-tikzcd to}
+  }
+}
+\tikzcdset{
+  epi/.code={
+    \pgfsetarrowsend{tikzcd double to}
+  }
+}
+
+\tikzcdset{
+  row sep/normal={
+    8ex
+  },
+  column sep/normal={
+    8ex
+  }
+}
+
+% repeated item in an enumerate
+\protected\def\itemasterisk{\rlap{*}}
+\newcommand{\repitem}{%
+  \addtocounter{enumi}{-1}%
+  \let\savedtheenumi\theenumi
+  \renewcommand{\theenumi}{\arabic{enumi}\itemasterisk}%
+  \item\let\theenumi\savedtheenumi
+}
+
+% comment on an equation
+\newcommand{\comment}[1]{\qquad\text{#1}}
+
+% defined term
+\newcommand{\defining}[1]{\textbf{#1}}
+
+% disjoint footnotes
+\newcommand{\disjointfootnotemark}[1]{\footnotemark[\getrefnumber{#1}]}
+\newcommand{\disjointfootnotetext}[1]{%
+  \addtocounter{footnote}{1}%
+  \addtocounter{Hfootnote}{1}%
+  \footnotetext{#1}%
+}
+
+% overset without decreasing font size
+\newcommand{\Overset}[2]{%
+  \mathop{#2}\limits^{\vbox to -.1ex{%
+  \kern -1.8ex\hbox{$#1$}\vss}}%
+}
+% underset without decreasing font size
+\newcommand{\Underset}[2]{%
+  \mathop{#2}\limits_{\vbox to .1ex{%
+  \kern -.6ex\hbox{$#1$}\vss}}%
+}
+
+% hyphen for math mode
+\mathchardef\dash="2D
+
+% such that
+\newcommand{\suchthat}{\,|\,}
+
+% separating dot
+\newcommand{\st}{\!\,.\,}
+
+% e costant
+\newcommand{\e}{\mathrm{e}}
+
+% exp
+\renewcommand{\exp}{\operatorname{exp}}
+
+% cotangent
+\newcommand{\cotan}{\operatorname{cotan}}
+
+% sign function
+\newcommand{\sign}{\operatorname{}{sgn}}
+
+% inverses of \to
+\newcommand{\ot}{\leftarrow}
+\newcommand{\from}{\ot}
+
+% long versions
+\newcommand{\longto}{\longrightarrow}
+\newcommand{\longfrom}{\longleftarrow}
+
+% inclusion
+\newcommand{\into}{\hookrightarrow}
+\newcommand{\inot}{\hookleftarrow}
+\newcommand{\mono}{\rightarrowtail}
+
+% surjection
+\newcommand{\onto}{\twoheadrightarrow}
+\newcommand{\epi}{\twoheadrightarrow}
+
+% iso arrows
+\newcommand{\isoto}{\overset{\sim}\to}
+\newcommand{\isolongto}{\overset{\sim}\longto}
+
+% 2-morphisms
+\newcommand{\twoto}{\Rightarrow}
+\newcommand{\isotwoto}{\overset{\sim}\twoto}
+\newcommand{\longtwoto}{\Longrightarrow}
+\newcommand{\isolongtwoto}{\overset{\sim}\longtwoto}
+
+% named to
+\newcommand{\narrow}[2]{\overset{#1}{#2}}
+\newcommand{\nto}[1]{\narrow{#1}{\to}}
+\newcommand{\nlongto}[1]{\narrow{#1}{\longto}}
+\newcommand{\ninto}[1]{\narrow{#1}{\into}}
+\newcommand{\nepi}[1]{\narrow{#1}{\epi}}
+\newcommand{\nmono}[1]{\narrow{#1}{\mono}}
+
+
+% locutions
+\newcommand{\word}[1]{\quad\text{\underline{#1}}\quad}
+
+\@ifpackagewith{babel}{italian}{%
+  \newcommand{\almosteverywhereon}[2][\mu]{{\text{${#1}$-q.o. su ${#2}$}}}
+  \newcommand{\almosteverywhere}{\ \text{q.o.}}
+  \newcommand{\almostsurely}{\ \text{q.c.}}
+  \newcommand{\sse}{\word{sse}}
+  \newcommand{\means}{\word{significa}}
+  \newcommand{\impl}{\word{implica}}
+  \newcommand{\fa}{\text{p.o.}\;}
+}{%
+  \newcommand{\almosteverywhereon}[2][\mu]{{\text{${#1}$-a.e. on ${#2}$}}}
+  \newcommand{\almosteverywhere}{\ \text{a.e.}}
+  \newcommand{\almostsurely}{\ \text{a.s.}}
+  \newcommand{\sse}{\word{iff}}
+  \newcommand{\means}{\word{means}}
+  \newcommand{\impl}{\word{implies}}
+  \newcommand{\fa}{\text{f.a.}\;}
+}
+
+% numerical sets
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+
+% internal numerical sets
+\newcommand{\NNO}{\mathcal{N}}
+\newcommand{\ZNO}{\mathcal{Z}}
+\newcommand{\QNO}{\mathcal{Q}}
+\newcommand{\RNO}{\mathcal{R}}
+\newcommand{\DR}{\RRO_d}
+\newcommand{\CR}{\RRO_c}
+
+% set-theoretic stuff
+\newcommand{\card}[1]{\left|{#1}\right|}
+\newcommand{\parts}[1]{\mathcal{P}\left({#1}\right)}
+
+% differential
+\newcommand{\diff}[1]{\operatorname{d}{#1}}
+% jacobian
+\newcommand{\jac}{\operatorname{\vv{J}}}
+
+% derivatives
+\newcommand{\de}{\mathrm{d}}
+\newcommand{\der}[2]{\frac{\mathrm{d}{#1}}{\mathrm{d}{#2}}}
+\newcommand{\pder}[2]{\frac{\partial {#1}}{\partial {#2}}}
+
+% modes of convergence
+\newcommand{\conv}[1][]{\underset{{#1}}{\longrightarrow}}
+\newcommand{\uniconv}[1][I]{\underset{{#1}}{\rightrightarrows}}
+\newcommand{\punconv}[1][I]{\conv[#1]}
+
+% support
+\newcommand{\supp}{\operatorname{supp}}
+
+% vectors
+\newcommand{\vv}[1]{{\boldsymbol{#1}}}
+
+% indicator function
+\newcommand{\ind}{\vv{1}}
+
+% sigma-algebras
+\newcommand{\Bor}{\mathcal{B}}
+\newcommand{\Leb}{\mathcal{L}}
+
+% expected value
+\newcommand{\Exp}{\mathbb{E}}
+
+% variance
+\newcommand{\Var}{\operatorname{Var}}
+
+% conditioning
+\newcommand{\cond}{\,|\,}
+
+% normal distribution
+\newcommand{\normal}{\mathcal{N}}
+
+% linear span
+\newcommand{\Span}{\operatorname{span}}
+
+% direct sum
+\newcommand{\dir}{\oplus}
+\newcommand{\bigdir}{\bigoplus}
+
+% tensor product
+\newcommand{\tens}[1][]{\otimes_{#1}}
+\newcommand{\bigtens}{\bigotimes}
+
+% image
+\newcommand{\im}{\operatorname{im}}
+
+% categories
+\newcommand{\Ob}{\operatorname{Ob}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\Aut}{\operatorname{Aut}}
+
+\newcommand{\Nat}{\operatorname{Nat}}
+
+\newcommand{\incat}[2]{\underset{\cat{#1}}{#2}}
+\newcommand{\toin}[1]{\underset{#1}\to}
+\newcommand{\fromin}[1]{\underset{#1}\ot}
+
+% profunctor arrow
+\newcommand{\profto}{\mathrel{\ooalign{\hfil$\mapstochar$\hfil\cr$\to$\cr}}}
+
+% F left adjoint to G symbol
+\newcommand{\adj}{\dashv}
+
+\newcommand{\cat}[1]{\mathbf{#1}}
+\newcommand{\tripos}[1]{\mathsf{#1}}
+\newcommand{\lang}[1]{\mathcal{#1}}
+\newcommand{\theory}[1]{\mathbb{#1}}
+\newcommand{\topos}[1]{\mathcal{#1}}
+
+% opposite category
+\newcommand{\op}{\mathsf{op}}
+
+% big categories
+\newcommand{\Cat}{\cat{Cat}}
+\newcommand{\Grpd}{\cat{Grpd}}
+\newcommand{\Ab}{\cat{Ab}}
+
+\newcommand{\Set}{\cat{Set}}
+\newcommand{\FinSet}{\cat{FinSet}}
+
+\newcommand{\Hey}{\cat{Hey}}
+\newcommand{\Bool}{\cat{Bool}}
+\newcommand{\PreOrd}{\cat{PreOrd}}
+\newcommand{\PreHey}{\cat{PreHey}}
+
+\newcommand{\Msbl}{\cat{Msbl}}
+\newcommand{\Meas}{\cat{Meas}}
+\newcommand{\Prob}{\cat{Prob}}
+\newcommand{\QBS}{\cat{QBS}}
+\newcommand{\Markov}{\cat{Markov}}
+
+% spaces
+\newcommand{\Top}{\cat{Top}}
+\newcommand{\Loc}{\cat{Loc}}
+
+% frames
+\newcommand{\Frm}{\cat{Frm}}
+
+% complete Heyting algebras
+\newcommand{\CHey}{\cat{CHey}}
+\newcommand{\CBool}{\cat{CBool}}
+
+% topoi, logoi
+\newcommand{\Topos}{\cat{Topos}}
+\newcommand{\Logos}{\cat{Logos}}
+
+\newcommand{\Tripos}{\cat{Tripos}}
+
+\newcommand{\Scott}{\cat{Scott}}
+\newcommand{\Ess}{\operatorname{Ess}}
+
+% the effective topos
+\newcommand{\Eff}{{\mathcal{E}\!f\!f}}
+
+% sheaves categories
+\newcommand{\Sh}{\operatorname{Sh}}
+\newcommand{\Psh}{\operatorname{Psh}}
+
+% category of optics
+\newcommand{\Optic}{\cat{Optic}}
+
+% isomorphism and equivalence symbols
+\newcommand{\iso}[1][]{\overset{#1}{\cong}}
+\newcommand{\equi}{\simeq}
+
+\newcommand{\isoin}[1]{\underset{#1}\iso}
+\newcommand{\isoincat}[2]{\incat{#1}\iso}
+
+% pullback
+\newcommand{\pbcorner}{\scalebox{1.5}{$\lrcorner$}}
+\newcommand{\pb}{\arrow[dr, phantom, "\pbcorner", very near start]}
+
+% colimit
+\newcommand{\colim}{\operatorname*{colim}}
+
+% subobjects
+\newcommand{\Sub}{\operatorname{Sub}}
+
+% Kleisli/coKleisli
+\newcommand{\Kleisli}{\operatorname{Kleisli}}
+\newcommand{\coKleisli}{\operatorname{coKleisli}}
+
+% Yoneda embedding
+\font\maljapanese=dmjhira at 2ex
+\newcommand{\yo}{\operatorname{\text{\maljapanese\char"48}\!}}
+\DeclareRobustCommand{\coyo}{\text{\reflectbox{$\yo$}}}
+
+% evaluation map
+\newcommand{\ev}{\operatorname{ev}}
+
+% twist map
+\newcommand{\tw}{\operatorname{tw}}
+
+% true/false predicate maps
+\newcommand{\true}{\mathsf{true}}
+\newcommand{\false}{\mathsf{false}}
+
+% closure operator
+\newcommand{\closure}{\overline}
+
+% type of propositions
+\newcommand{\Prop}{\mathsf{Prop}}
+
+% forcing symbol
+\newcommand{\forces}{\vDash}
+
+% entailment
+\newcommand{\entails}{\vdash}
+\newcommand{\bientails}{\dashv\vdash}
+
+% logical implication
+\newcommand{\limp}{\rightarrow}
+\newcommand{\liff}{\leftrightarrow}
+
+% context judgment
+\newcommand{\type}{{\ \mathrm{type}}}
+% context judgment
+\newcommand{\context}{{\ \mathrm{context}}}
+% formula judgment
+\newcommand{\formula}{{\ \mathrm{formula}}}
+% equality judgment
+\newcommand{\isequalto}{\ \mathrm{is\ equal\ to}\ }
+
+% double square brackets
+\newcommand{\sem}[1]{{\llbracket\,{#1}\,\rrbracket}}
+
+\renewcommand{\L}{\lang L}
+\renewcommand{\S}{\cat S}
+
+% type termship
+\newcommand{\tin}{\!:\!}
+
+% operations in a Heyting algebra
+\newcommand{\hey}{\Rightarrow}
+\newcommand{\bigsup}{\bigvee}
+\newcommand{\biginf}{\bigwedge}
+
+% common structured sets
+\newcommand{\uOmega}{{\underline{\Omega}}}
+\newcommand{\uE}{{\underline{E}}}
+\newcommand{\uI}{{\underline{I}}}
+\newcommand{\uR}{\underline{\R}}
+
+% premeasure
+\newcommand{\pre}{\mathrm{pre}}
+
+\newcommand{\prob}[1]{\mathbb{#1}}
+\newcommand{\salg}[1]{\mathcal{#1}}
+\newcommand{\alg}[1]{\mathbb{#1}}
+
+% Lindenbaum--Tarski doctrine
+\newcommand{\LT}{\tripos{LT}}
+
+% subobjects Pitts tripos
+\newcommand{\sub}[1]{\Sub_{\cat C[{#1}]}\!\nabla_{{#1}}}
+
+% letters
+\newcommand{\E}{\salg{E}}
+\newcommand{\F}{\salg{F}}
+\newcommand{\G}{\salg{G}}
+\renewcommand{\P}{\prob{P}}
+\renewcommand{\H}{\alg{H}}

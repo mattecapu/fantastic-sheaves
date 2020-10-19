@@ -1,0 +1,59 @@
+\documentclass[english]{presentation}
+%\setbeameroption{show notes on second screen}
+%\setbeameroption{show only notes}
+
+\usepackage{chngpage}
+\usepackage{array}
+
+% Presento style file
+\usepackage{config/presento}
+
+\usepackage{textpos}
+\setlength{\TPHorizModule}{1cm}
+\setlength{\TPVertModule}{1cm}
+
+\usepackage{stmaryrd}
+
+% strikethrough text
+\usepackage[normalem]{ulem}
+
+% macros
+\usepackage{mama}
+
+\renewcommand{\O}{\mathcal{O}}
+
+\renewcommand<>{\sout}[1]{%
+	\alt#2{\beameroriginal{\sout}{#1}}{#1}%
+}
+
+\AtBeginDocument{%
+ \abovedisplayskip=1ex
+ \belowdisplayskip=1ex
+ \abovedisplayshortskip=0pt
+ \belowdisplayshortskip=7pt minus 4pt
+}
+
+\title{Fantastic sheaves\\[.8ex]and where to find them}
+\subtitle{An MSP101 talk}
+\institute{University of Strathclyde}
+\author{Matteo Capucci}
+\date{October 22, 2020 (Day 300 of the COVID Era)}
+
+\begin{document}
+	\begin{frame}[plain]
+		\maketitle
+	\end{frame}
+
+	\input{slides/introduction.tex}
+	\input{slides/sheaves.tex}
+	\input{slides/cohomology.tex}
+	\input{slides/logic.tex}
+
+	\begin{framecard}
+		{\color{white}
+		\bfseries
+
+		\hugetext{Thanks for your attention!}
+		\largetext {Questions?}}
+	\end{framecard}
+\end{document}

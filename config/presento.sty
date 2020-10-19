@@ -1,0 +1,118 @@
+\ProvidesPackage{config/presento}
+\mode<presentation>
+
+% removing navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+% packages
+\usepackage{xcolor}
+\usepackage{setspace}
+\usepackage{tikz}
+\usepackage{enumitem}
+
+\usepackage{multicol}
+
+% colors
+\definecolor{colormain}{HTML}{000000} % orange
+\definecolor{colornote}{HTML}{757A7C} % dark gray for note
+\definecolor{colornormaltext}{HTML}{212121} % heavy dark gray for normal text
+\definecolor{colorbg}{HTML}{FFFFFF} % background
+\definecolor{coloraccent}{HTML}{FF0033} % red
+\definecolor{colorblue}{HTML}{0033FF} % blue
+\definecolor{colorgreen}{HTML}{00FF00} % green
+
+% font sizes
+\newcommand{\fontsizeone}{2em}
+\newcommand{\fontsizetwo}{1em}
+\newcommand{\fontsizethree}{0.875em}
+
+% beamer template changes
+\setbeamertemplate{frametitle}{
+	\vspace{0.40em}
+	\noindent
+	\hspace{-1.5em}
+	\color{colorblue}{\bfseries\insertframetitle}%
+}
+
+% frame counter
+\newcounter{totalfr}
+\setbeamertemplate{footline}{
+  \ifnum\inserttotalframenumber=1
+    \setcounter{totalfr}{2}
+  \else
+     \setcounter{totalfr}{\inserttotalframenumber}
+  \fi
+  \hfill{
+    \tikz{
+      \filldraw[fill=colorblue!40, draw=colorblue!50]  (0,0) -- (0.2,0) arc (0:{\value{framenumber}*(360/(\value{totalfr}-1))}:0.2) -- (0,0);
+      \node at (0,0) {\normalsize \color{colormain}\tiny{\insertframenumber}};
+    }
+  }
+  \hspace{2em}
+  \vspace*{1em}
+}
+
+% custom commands
+\newcommand{\hugetext}[1]{
+ {\fontsize{\fontsizeone}{\fontsizeone}{\selectfont #1}}
+}
+
+\newcommand{\largetext}[1]{
+ {\fontsize{\fontsizetwo}{\fontsizetwo}{\selectfont #1}}
+}
+
+\newcommand{\setnote}[1]{
+ {\fontsize{\fontsizethree}{\fontsizethree}\color{colornote}{\selectfont #1}}
+}
+
+\newcommand{\itemR}{
+ \item[\rtarrow]
+}
+
+\newcommand{\framecard}[2][colorblue]{
+  {\setbeamercolor{background canvas}{bg=#1}
+    \begin{frame}[plain]
+    \vfill
+    \begin{center}
+     {#2}
+    \end{center}
+    \vfill
+    \end{frame}
+  }
+}
+% \newcommand{\framepic}[3][1]{
+%   {
+%     \usebackgroundtemplate{%
+%     \tikz[overlay,remember picture] \node[opacity=#1, at=(current page.center)] {
+%       \includegraphics[width=\paperwidth]{#2}};
+%     }
+%     \begin{frame}
+%     #3
+%     \end{frame}
+%   }
+% }
+
+\setbeamercolor{background canvas}{bg=colorbg}
+\setbeamercolor{normal text}{fg=colornormaltext}
+\setbeamercolor{title}{fg=coloraccent}
+\setbeamercolor{subtitle}{fg=colormain}
+\setbeamercolor{author}{fg=colorblue}
+\setbeamercolor{block title}{fg=colorblue}
+
+\defbeamertemplate*{title page}{customized}[1][]
+{
+  \setnote{\insertinstitute}
+
+  \vfill
+  \begin{center}
+    {\usebeamercolor[fg]{title}\fontsize{3em}{3em}{\selectfont \inserttitle}}
+    \\[2ex]
+    {\usebeamercolor[fg]{subtitle}\largetext{\insertsubtitle}}
+  \end{center}
+
+  \vfill
+  \hfill
+  {\usebeamercolor[fg]{author}\largetext{\insertauthor}}\\
+  \hfill
+  {\setnote{\insertdate}\par}
+}

@@ -1,0 +1,139 @@
+\begin{frame}{Basics}
+	Let $X$ be a topological space, $\O(X)$ its frame of open sets.
+
+	\begin{definition}
+		A \defining{presheaf} on $X$ is a functor
+		\begin{equation*}
+			F: \O(X)^\op \longto \Set
+		\end{equation*}
+		%(A presheaf of $\cat C$s is a functor $\O(X)^\op \to \cat C$)
+	\end{definition}
+
+	Elements of $F(U)$ are called \defining{sections}. The map $F(V \subseteq U)$ is called \defining{restriction}, and we write $s\vert_V := F(V \subseteq U)(s)$.
+
+	\begin{definition}
+		A \defining{sheaf} on $X$ is a presheaf $F$ such that for every open covering $\{U_i\}_{i \in I}$:
+		\begin{equation*}
+			\textbf{sheaf condition}: \quad F(\colim U_i) \iso \lim F(U_i).
+		\end{equation*}
+	\end{definition}
+	The sheaf condition is a `continuity' or a `locality' condition.
+\end{frame}
+
+\begin{frame}{Sheaf condition}
+	Let's unpack it:
+	\vfill
+	\begin{enumerate}
+		\item The colimit of a covering is
+		\begin{equation*}
+			{\textstyle \colim U_i = \bigcup_i U_i =: U}.
+		\end{equation*}
+		Elements of $F(U)$ are `globally defined sections' (wrt to $U$).
+		\vspace{3ex}
+		\item Elements of $\lim F(U_i)$ are `locally defined sections' which satisfy a \defining{compatibility condition}:
+		\begin{equation*}
+			\lim F(U_i) = \{(s_i)_{i \in I} \suchthat s_i \vert_{U_i \cap U_j} = s_j \vert_{U_i \cap U_j}\ \text{for all $i,j \in I$}\}
+		\end{equation*}
+		\vspace{1ex}
+		\item There is a universal morphism
+		\begin{eqalign*}
+			\varphi : F(\colim U_i) &\longto \lim F(U_i)\\
+			s &\longmapsto (s\vert_{U_i})_{i \in I}
+		\end{eqalign*}
+	\end{enumerate}
+	\vfill
+\end{frame}
+
+\begin{frame}{Sheaf condition}
+	\begin{eqalign*}
+		\varphi : F(\colim U_i) &\longto \lim F(U_i)\\
+		s &\longmapsto (s\vert_{U_i})_{i \in I}
+	\end{eqalign*}
+	Then:
+	\begin{enumerate}
+		\item $\varphi$ mono means
+		\begin{center}
+			\textbf{separation axiom}:\quad $s=t \in F(U)$ iff $s\vert_{U_i} = t\vert_{U_i}$ forall $i \in I$.
+		\end{center}
+		\item $\varphi$ epi means
+		\begin{center}
+			\textbf{glueing axiom}:\quad every compatible assignment of sections $(s_i)_{i \in I} \in \lim F(U_i)$ `glues' to a global section $s \in F(U)$.
+		\end{center}
+	\end{enumerate}
+	\vfill
+	A presheaf satisfying separation is called \defining{separated}.
+
+	A sheaf satisfies both.
+\end{frame}
+
+\begin{frame}{Sheaf condition}
+	\begin{example}
+		The canonical example is $C(-; \R)$ of continuous real functions.\\
+		Also: smooth functions, measurable functions, etc. (in fact many structures can be encoded directly in a \emph{structure sheaf}).
+	\end{example}
+	\begin{block}{Non-example}
+		Separated presheaves which are not sheaves:
+		\begin{enumerate}
+			\item Constant functions: if $U$ and $V$ are disjoint open sets, there's no way to glue two constant functions with different values on $U$ and $V$, \emph{even though they agree on $U \cap V$}.
+			\item Bounded functions: choose an infinite covering, even though every local section might be bounded there's no guarantee their glueing will be bounded (e.g. $\lambda x.x^2\vert_{(n,n+1)}$)
+		\end{enumerate}
+	\end{block}
+	\setnote{Non-separated presheaves are rare to find in practice (though easy to construct)}
+\end{frame}
+
+% \begin{frame}{Sheaf condition}
+% 	In general: `local properties' (continuity, smoothness) work, `global' not so much (constancy, boundedness).
+% 	\begin{example}
+% 		If we ask for the `local versions', constant and bounded presheaves become sheaves:
+% 		\begin{enumerate}
+% 			\item Constant sheaf at $A$: $\underline A(U)$ = locally constant maps $U \to A$. Then we can glue without problems.
+% 			\item The sheaf of locally bounded functions.
+% 			\item Integrability is also a non-local property, hence $L^1$ is not a sheaf but a presheaf, unless we ask for \emph{local} integrability ($L^1_{\text{loc}}$).
+% 		\end{enumerate}
+% 	\end{example}
+% \end{frame}
+
+\begin{frame}{Sheaf condition}
+	The sheaf condition can be read also in terms of \textbf{systems theory}:
+	\vfill
+	Suppose $X$ is a `system', and its open sets are `parts'.%\setnote{(later we'll describe a formalism which allows to relax the assumption `parts form a topology' [which isn't that bad anyway])}
+
+	Then the \textbf{functor of behaviours} is a presheaf:
+	\vfill
+	\begin{diagram*}
+		U \&[-3ex] \&[-1ex] \{\text{behaviours of the part $U$}\} \arrow{dd}{\text{behaviour induced by forgetting $U \setminus V$}}\\[-6ex]
+		\phantom{A} \& \arrow[mapsto]{r}{B} \& \phantom{AAAAAAAAAAAaaAAAAAAAA} \\[-6ex]
+		V \arrow{uu}{\subseteq} \&\& \{\text{behaviours of the part $V$}\}
+	\end{diagram*}
+	\vfill
+	\onslide<2->{
+		\begin{description}
+			\item[Separation:] \emph{behaviours can be distinguished at the level of parts}. %{\onslide<2>{\color{coloraccent}Fails if we have emergent effects!}}
+			\item[Glueing:] \emph{compatible behaviours of the parts form global behaviours}. %\onslide<2>{\color{coloraccent}{Always ok.}}
+		\end{description}
+	}
+\end{frame}
+
+\begin{frame}{Sheafification}
+	The inclusion of sheaves into presheaves has a left adjoint:
+	\begin{diagram*}
+		\Sh(X) \arrow[hook, shift right, swap]{r}{i} \& \Psh(X) \arrow[shift right, swap]{l}{\cdot^a}
+	\end{diagram*}
+	Informally, you get it by putting `locally' in front of properties.
+	\onslide<2->\begin{example}
+		\begin{enumerate}
+			\item %$(\text{constant maps at $A$})^a =$ constant \emph{sheaf} at $A$:
+			%\begin{center}
+				$\underline S^a(U)$ = {\color{red}locally} constant maps $U \to S$ \setnote{(constant \emph{sheaf} at $S$)}
+			%\end{center}
+			\item
+			%\begin{center}
+				$Bdd^a_\R(U)$ = {\color{red}locally} bounded maps $U \to \R$
+			%\end{center}
+		\end{enumerate}
+	\end{example}
+	In general,
+	\begin{center}
+		$F^a(U) = {\displaystyle \colim_{\mathcal{U}\ \text{hyper.}} \lim F(\mathcal{U})}$ = formal glueings over (hyper)covers
+	\end{center}
+\end{frame}
