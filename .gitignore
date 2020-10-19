@@ -10,8 +10,12 @@
 *.blg
 *.run.xml
 *.pdf
+*.nav
+*.snm
 
 figures/cache
 figures/sd/*.tex
 
 bin/**
+
+!main.pdf
