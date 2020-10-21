@@ -122,7 +122,7 @@
 \begin{frame}{\v{C}ech cohomology: systems theory}
 	% In terms of systems theory, \textbf{cohomology detects generative effects}.
 	% \vfill
-	Let $B$ {\color{colornote}(presheaf of behaviours)} be a \textbf{pre}sheaf of abelian groups, let $\{U_i\}_{i \in I}$ open covering of $U$.
+	Let $B$ {\color{colornote}(presheaf of behaviours)} be a \textbf{pre}sheaf of abelian groups, let $\{U_i\}_{i \in I}$ be an open covering of $U$.
 
 	Its \textbf{{\color{red}{augmented}} \v{C}ech complex} is:
 	\begin{diagram*}
@@ -132,9 +132,9 @@
 	where {\color{red}$d_{-1}(s) = (s\vert_{U_i})_i$}.
 	\begin{eqalign*}
 		\onslide<3->{H^{-1} &= \text{failure of $B$ to be separated \color{colornote}{($=0$ iff separation holds)}}}\\
-		&\qquad\onslide<6->{\rightsquigarrow \text{\color{red}\bfseries interactive behaviour}}\\
+		&\qquad\onslide<6->{\rightsquigarrow \text{\color{red}\textbf{extensionality of behaviour} ($=0$ if fully extensional)}}\\
 		\onslide<4->{H^0 &= \text{failure of $B$ to glue \color{colornote}{($=0$ iff glueing holds)}}}\\
-		&\qquad\onslide<7->{\rightsquigarrow \text{\color{red}\textbf{emergent behaviour} (Adam, 2017)}}\\
-		\onslide<5->{H^{\geq 1} &= \text{same as before!}}\onslide<8->{\rightsquigarrow \text{\bfseries higher-order emergent behaviour...?}}\\
+		&\qquad\onslide<7->{\rightsquigarrow \text{{\color{red}\textbf{emergent behaviour} ($=0$ if no emergence)} [Adam, 2017]}}\\
+		\onslide<5->{H^{\geq 1} &= \text{same as before!}}\onslide<8->{\rightsquigarrow \text{\color{red}\textbf{higher-order emergent behaviour...?}}}\\
 	\end{eqalign*}
 \end{frame}

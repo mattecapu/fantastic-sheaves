@@ -1,3 +1,26 @@
+\begin{framecard}
+	{\color{white}
+	\bfseries
+
+	\hugetext{Geometry}}
+\end{framecard}
+
+\begin{frame}{Geometry}
+	\textbf{Idea}:
+	\begin{center}
+	\color{red}
+	\bfseries
+		sheaves are 'continuously parametrized' objects\\on a topological space.
+	\end{center}
+
+	We are going to see
+	\begin{enumerate}
+		\item Sheaf condition as a continuity requirement
+		\item `Local-to-global' behaviour
+		\item Sheaf cohomology
+	\end{enumerate}
+\end{frame}
+
 \begin{frame}{Basics}
 	Let $X$ be a topological space, $\O(X)$ its frame of open sets.
 
@@ -78,7 +101,7 @@
 			\item Bounded functions: choose an infinite covering, even though every local section might be bounded there's no guarantee their glueing will be bounded (e.g. $\lambda x.x^2\vert_{(n,n+1)}$)
 		\end{enumerate}
 	\end{block}
-	\setnote{Non-separated presheaves are rare to find in practice (though easy to construct)}
+	\setnote{Non-separated presheaves are rare to find in practice}
 \end{frame}
 
 % \begin{frame}{Sheaf condition}
@@ -114,26 +137,26 @@
 	}
 \end{frame}
 
-\begin{frame}{Sheafification}
-	The inclusion of sheaves into presheaves has a left adjoint:
-	\begin{diagram*}
-		\Sh(X) \arrow[hook, shift right, swap]{r}{i} \& \Psh(X) \arrow[shift right, swap]{l}{\cdot^a}
-	\end{diagram*}
-	Informally, you get it by putting `locally' in front of properties.
-	\onslide<2->\begin{example}
-		\begin{enumerate}
-			\item %$(\text{constant maps at $A$})^a =$ constant \emph{sheaf} at $A$:
-			%\begin{center}
-				$\underline S^a(U)$ = {\color{red}locally} constant maps $U \to S$ \setnote{(constant \emph{sheaf} at $S$)}
-			%\end{center}
-			\item
-			%\begin{center}
-				$Bdd^a_\R(U)$ = {\color{red}locally} bounded maps $U \to \R$
-			%\end{center}
-		\end{enumerate}
-	\end{example}
-	In general,
-	\begin{center}
-		$F^a(U) = {\displaystyle \colim_{\mathcal{U}\ \text{hyper.}} \lim F(\mathcal{U})}$ = formal glueings over (hyper)covers
-	\end{center}
-\end{frame}
+% \begin{frame}{Sheafification}
+% 	The inclusion of sheaves into presheaves has a left adjoint:
+% 	\begin{diagram*}
+% 		\Sh(X) \arrow[hook, shift right, swap]{r}{i} \& \Psh(X) \arrow[shift right, swap]{l}{\cdot^a}
+% 	\end{diagram*}
+% 	Informally, you get it by putting `locally' in front of properties.
+% 	\onslide<2->\begin{example}
+% 		\begin{enumerate}
+% 			\item %$(\text{constant maps at $A$})^a =$ constant \emph{sheaf} at $A$:
+% 			%\begin{center}
+% 				$\underline S^a(U)$ = {\color{red}locally} constant maps $U \to S$ \setnote{(constant \emph{sheaf} at $S$)}
+% 			%\end{center}
+% 			\item
+% 			%\begin{center}
+% 				$Bdd^a_\R(U)$ = {\color{red}locally} bounded maps $U \to \R$
+% 			%\end{center}
+% 		\end{enumerate}
+% 	\end{example}
+% 	In general,
+% 	\begin{center}
+% 		$F^a(U) = {\displaystyle \colim_{\mathcal{U}\ \text{hyper.}} \lim F(\mathcal{U})}$ = formal glueings over (hyper)covers
+% 	\end{center}
+% \end{frame}

@@ -4,6 +4,7 @@
 
 \usepackage{chngpage}
 \usepackage{array}
+\usepackage{tabularx}
 
 % Presento style file
 \usepackage{config/presento}
@@ -20,7 +21,12 @@
 % macros
 \usepackage{mama}
 
+% \halfsquare
+\usepackage{graphicx}
+
 \renewcommand{\O}{\mathcal{O}}
+\newcommand{\prehalfsquare}[2]{\scalebox{.5}[1]{$#1\square$}}
+\newcommand{\halfsquare}{{\mathpalette\prehalfsquare\relax}}
 
 \renewcommand<>{\sout}[1]{%
 	\alt#2{\beameroriginal{\sout}{#1}}{#1}%
@@ -33,6 +39,8 @@
  \belowdisplayshortskip=7pt minus 4pt
 }
 
+\addbibresource{./bibliography.bib}
+
 \title{Fantastic sheaves\\[.8ex]and where to find them}
 \subtitle{An MSP101 talk}
 \institute{University of Strathclyde}
@@ -44,10 +52,10 @@
 		\maketitle
 	\end{frame}
 
-	\input{slides/introduction.tex}
 	\input{slides/sheaves.tex}
 	\input{slides/cohomology.tex}
 	\input{slides/logic.tex}
+	\input{slides/bibliography.tex}
 
 	\begin{framecard}
 		{\color{white}
