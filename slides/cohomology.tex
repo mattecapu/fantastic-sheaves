@@ -22,16 +22,19 @@
 \begin{frame}{\v{C}ech cohomology}
 	Take a `good' cover $\{U_i\}_{i \in I}$ of $X$. \setnote{(e.g. contractible intersections)}
 	\vfill
-	Consider the following \textbf{chain complex}: \setnote{(meaning $\im d_n \subseteq \ker d_{n+1}$)}
+	Consider the following \textbf{cochain complex}: \setnote{(meaning $\im d_n \subseteq \ker d_{n+1}$)}
+	\vspace{4ex}
 	\begin{diagram*}
 		0 \arrow{r} \&[-6ex] \prod_i F(U_i) \arrow{r}{d_0} \&[-5ex] \prod_{i,j} F(U_i \cap U_j) \arrow{r}{d_1} \&[-5ex] \prod_{i,j,k} F(U_i \cap U_j \cap U_k) \arrow{r}{d_2} \&[-5ex] \cdots
 	\end{diagram*}
-	where
+	\vfill
+	whose \defining{coboundaries} are
+	\vspace{4ex}
 	\begin{eqalign*}
 		d_0((s_i)_i) &= (s_i \vert_{U_i \cap U_j} - s_j \vert_{U_i \cap U_j})_{i,j}\\
-		d_1((s_{i,j})_{i,j}) &= (s_{i,j}\vert_{U_i \cap U_j \cap U_k} - s_{j,k}\vert_{U_i \cap U_j \cap U_k} + s_{k,i}\vert_{U_i \cap U_j \cap U_k})_{i,j,k}
+		d_1((s_{i,j})_{i,j}) &= (s_{i,j}\vert_{U_i \cap U_j \cap U_k} - s_{j,k}\vert_{U_i \cap U_j \cap U_k} + s_{k,i}\vert_{U_i \cap U_j \cap U_k})_{i,j,k}\\
+		&\ \ \vdots
 	\end{eqalign*}
-	and so on...
 	\vfill
 \end{frame}
 
@@ -45,7 +48,7 @@
 		Meaning:
 		\begin{eqalign*}
 			H^0 &= \text{local sections $(s_i)_i$ s.t. $s_i\vert_{U_i \cap U_j} = s_j\vert_{U_i \cap U_j}$ $\forall i,j \in I$}\\
-			&\overset{\text{glueing}}= \text{\color{red}global sections}.\\
+			&\overset{\text{if sheaf}}= \text{\color{red}global sections}.\\
 			H^1 &= \text{compatible local sections on $U_i \cap U_j$}\\
 			&\phantom{=}\ \ \text{which do not arise from an assignment on the opens}\\
 			&\approx \text{\color{red}$1$-holes}\\
@@ -61,7 +64,7 @@
 			\includegraphics[width=.6\columnwidth]{figures/s1_cover.png}
 		\end{minipage}%
 		\begin{minipage}{.6\textwidth}
-			Cover $S^1$ as in the picture,\\let $F =$ constant sheaf at $K$ field.
+			Cover $S^1$ as in the picture,\\let $F = \Delta K = $ constant sheaf at $K$ field.
 			\begin{diagram*}
 				\text{\v{C}ech complex:} \quad 0 \arrow{r} \&[-5ex] K^3 \arrow{r}{d_0} \&[-5ex] K^3 \arrow{r}{d_1} \&[-5ex] 0
 			\end{diagram*}

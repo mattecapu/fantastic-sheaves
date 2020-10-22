@@ -32,15 +32,16 @@
 \end{frame}
 
 \begin{frame}{Sites}
+	Let $\cat C$ be a small category.
 	\begin{definition}
-		A \defining{sieve} on $U$ is a collection $S$ of morphisms $\{U_i \to U\}_{i \in I}$ closed by precomposition on the left:
+		A \defining{sieve} on $U \tin \cat C$ is a collection $S$ of morphisms $\{U_i \to U\}_{i \in I}$ closed by precomposition on the left:
 		\begin{equation*}
 			\underbrace{V \to \underbrace{U_i \to U}_{\in S}}_{\implies \in S}
 		\end{equation*}
 		\setnote{You generate a sieve by choosing some morphisms into $U$ and then closing.}
 	\end{definition}
 
-	\begin{definition}
+	\begin{definition}<2->
 		A \defining{site} is a small category $\cat C$ together with a \defining{Grothendieck topology} $J$, i.e. a choice of sieves for each object $U \tin \cat C$:
 		\begin{equation*}
 			J(U) = \text{\bfseries covering sieves for $U$}
@@ -51,32 +52,35 @@
 
 \begin{frame}{Sites}
 	\begin{definition}
-		A presheaf $F : \cat C^\op \to \Set$ is a sheaf iff for any \emph{sieve} $S$ on $U \tin \cat C$,
+		Let $(\cat C, J)$ be a site.
+		A presheaf $F : \cat C^\op \to \Set$ is a sheaf iff for every $U \tin \cat C$ and any \emph{covering sieve} $S \in J(U)$,
 		\begin{equation*}
 			F(U) \iso \lim F(S).
 		\end{equation*}
 		\textbf{Warning}: it's not always true that $U \iso \colim S$!
 	\end{definition}
 
-	\begin{example}
+	\begin{example}<2->
 		For $X$ topological space:
 		\begin{eqalign*}
-			\Sh X  &= \Sh (\O(X),\, \text{jointly epimorphic families})\\
+			\Sh X  &= \Sh (\O(X),\, \text{open coverings})\\
 			\Psh X &= \Sh (\O(X),\, \text{trivial coverings})
 		\end{eqalign*}
 	\end{example}
-	\textbf{Takeaway}: locality is not a fixed concept! It depends on the topology, but not the one you expect.
+	\onslide<3->{
+		\textbf{Takeaway}: locality is not a fixed concept! It depends on the topology, but not the one you expect.
+	}
 \end{frame}
 
 \begin{frame}{The topos of presheaves}
 	Let $X$ be a site. $\Sh X$ inherits a lot of structure from $\Set$:
 	\begin{enumerate}
-		\item<2-> {[Finite]} completeness and cocompleteness (pointwise co/limits)
-		\item<3-> \textbf{Exponentials}:
+		\item {[Finite]} \textbf{completeness} and \textbf{cocompleteness} (pointwise co/limits)
+		\item \textbf{Exponentials}:
 		\begin{equation*}
 			G^F(U) \iso \Nat(\yo U, G^F) \iso \Nat(\yo U \times F, G)
 		\end{equation*}
-		\item<4-> \textbf{Subobject classifier}: $\Omega(U) =$ `principal sieves on $U$'.
+		\item \textbf{Subobject classifier}: $\Omega(U) =$ `principal covering sieves on $U$'.
 		\begin{diagram*}
 			P \arrow[tail, swap]{d}{\forall \varphi} \arrow{r}{!} \& 1 \arrow{d}{\true} \&[-3ex] \color{colornote}{*} \arrow[colornote, mapsto]{d}\\
 			F \arrow{r}{\exists ! \ulcorner \varphi \urcorner} \& \Omega \& \color{colornote}{1_U}
@@ -119,20 +123,18 @@
 	\vspace{-3ex}
 	\begin{center}%
 		\begin{tabular}{lcp{45ex}}
-			\onslide<2->{$U \forces \varphi \land \psi$ & \underline{iff} & $U \forces \varphi$ and $U \forces \psi$\\
+			$U \forces \varphi \land \psi$ & \underline{iff} & $U \forces \varphi$ and $U \forces \psi$\\
+			$U \forces \varphi \lor \psi$ & \underline{iff} & there exists an open covering $\{U_i\}_{i \in I}$ of $U$ \newline such that $U_i \forces \varphi$ or $U_i \forces \psi$ for every $i \in I$\\
 			$U \forces \varphi \hey \psi$ & \underline{iff} & for all $V \subseteq U$, $V \forces \varphi$ implies $V \forces \psi$\\
-			$U \forces \forall s \tin F\ \varphi(s)$ & \underline{iff} & for any $s \in F(U)$ and $V \subseteq U$, $V \forces \varphi(s)$\\[1ex]}
-			\onslide<3->{$U \forces \varphi \lor \psi$ & \underline{iff} & there exists an open covering $\{U_i\}_{i \in I}$ of $U$ \newline such that $U_i \forces \varphi$ or $U_i \forces \psi$ for every $i \in I$\\
-			$U \forces \exists s \tin F\ \varphi(s)$ & \underline{iff} & there exists an open covering $\{U_i\}_{i \in I}$ of $U$\newline such that for all $i \in I$ there exists $s_i \in F(U_i)$ such that $U_i \forces \varphi(s_i)$.}
+			$U \forces \forall s \tin F\ \varphi(s)$ & \underline{iff} & for any $s \in F(U)$ and $V \subseteq U$, $V \forces \varphi(s)$\\
+			$U \forces \exists s \tin F\ \varphi(s)$ & \underline{iff} & there exists an open covering $\{U_i\}_{i \in I}$ of $U$\newline such that for all $i \in I$ there exists $s_i \in F(U_i)$ such that $U_i \forces \varphi(s_i)$.
 		\end{tabular}
 	\end{center}
-	\onslide<4->{
+	\onslide<2->{
 		This interpretation is \textbf{local}: if $\{U_i\}_{i \in I}$ is an open covering of $U$,
 		\begin{equation*}
 			U \forces \varphi \sse \text{for every $i \in I$, $U_i \forces \varphi$}
 		\end{equation*}
-	}
-	\onslide<5->{%
 	and \textbf{intuitionistically sound}: if $\varphi \entails \psi$ in HIL, then
 		\begin{equation*}
 			U \forces \varphi \word{implies} U \forces \psi.
@@ -144,14 +146,14 @@
 	\begin{definition}
 		A \defining{Lawvere--Tierney topology} on a topos $\topos E$ is an operator $\square : \Omega \to \Omega$ such that
 		\begin{enumerate}
-			\item $\topos E \forces \varphi \hey \square \varphi$ \setnote{(global truth entails local truth)},
+			\item $\topos E \forces \varphi \hey \square \varphi$ \setnote{(global truth entails local truth)}
 			\item $\topos E \forces \square \square \varphi \hey \square \varphi$ \setnote{(stability under refinements)}
-			\item If $\topos E \forces \varphi \hey \psi$ then $\topos E \forces \square \varphi \hey \square \psi$ \setnote{(soundness)}
+			\item If $\topos E \forces \varphi \hey \psi$ then $\topos E \forces \square \varphi \hey \square \psi$ \setnote{(internal soundness)}
 		\end{enumerate}
 	\end{definition}
 	Define $\halfsquare : \topos E \to \topos E$:
 	\begin{equation*}
-		\halfsquare X := \{ \text{singletons of $X$} \}_{\big/ \square (=_X)}
+		\halfsquare X := \{ \text{$\square$-singletons of $X$} \}_{\big/ \square (=_X)}
 	\end{equation*}
 	\vspace{-5.5ex}
 	\begin{proposition}
@@ -183,36 +185,45 @@
 \end{frame}
 
 \begin{frame}{Forcing}
-	\textbf{Remark}: sheafification is a \emph{localization}, i.e. we introduce new isomorphisms, hence we also enlarge the class of monos $P \nmono{\varphi} X$ such that $\varphi \iso \true_X$:
-	\begin{equation*}
-		\square \topos E \forces \varphi \sse \topos E \forces \varphi^\square
-	\end{equation*}
-	where $\varphi^\square$ is the `$\square$-translation', i.e. a recursive application of $\square$ to subformulae $\varphi$.
+	% \textbf{Remark}: sheafification is a \emph{localization}, i.e. we introduce new isomorphisms, hence we also enlarge the class of monos $P \nmono{\varphi} X$ such that $\varphi \iso \true_X$:
+	% \begin{equation*}
+	% 	\square \topos E \forces \varphi \sse \topos E \forces \varphi^\square
+	% \end{equation*}
+	% where $\varphi^\square$ is the `$\square$-translation', i.e. a recursive application of $\square$ to subformulae $\varphi$.
 
-	In particular:
-	\begin{center}%
-		\textbf{Existence is local}: to define a global element $1 \nmono{s} X$ we only need to define (compatible) local elements $U_i \nmono{s_i} X$ for every $U_i$ of a cover of $X$.
-	\end{center}
+	% In particular: \textbf{existence is local}.
+
+	\textbf{Idea}: existence is local in a sheaf topos, hence we can define global things by glueing together smaller approximations:
+	\vfill
+	\textbf{Rough recipe}:
+	\begin{enumerate}
+		\item Construct a poset $P$ of `finite' approximations of the object, ordered by (reverse) extension
+		\item Take a `tautological sheaf' on it: $A(p) = p$
+		\item $A$ will be the desired object in $\Sh P$.
+	\end{enumerate}
+	\vfill
 \end{frame}
 
 \begin{frame}{Forcing}
-	\textbf{Idea}: I can use this phenomenon to cook 'impossible objects':
-	\begin{enumerate}
-		\item Construct a poset $P$ of `finite' approximations of your object, ordered by extension
-		\item Take the `tautological sheaf' on it: $A(p) = p$
-		\item $A$ will be the desired object in $\Sh P$.
-	\end{enumerate}
 	\begin{example}[Cohen topos]
-		We want to construct a model of $\mathsf{ZFC}$ where $\exists A$ such that
+		We want to construct a model $\mathcal M$ of $\mathsf{ZFC}$ where there exists $A$ such that
 		\begin{equation*}
-			\N \mono A \mono P\N
+			\mathcal M \forces \N \lneq A \lneq P_{\mathcal M} \N
 		\end{equation*}
 		Take $B = PP\N$. Then we \emph{force} the above inclusions:
 		\begin{enumerate}
-			\item $P = $ `partially defined monos $B \mono 2^\N$',
+			\item $P = $ `partially defined monos $B \nmono{p} 2^\N$', $\mathcal M = \Sh(P, \neg\neg)$,
 			\item $A(p) = \{(k, n) \suchthat n \in p(k)\}$,
-			\item By definition: $A \mono \Delta K \times \Delta \N$, hence it's a mono $\Delta K \mono \Omega^{\Delta \N}$.
+			\item We get $A \mono \Delta B \times \Delta \N$, one can show defines a mono $\Delta B \mono \Omega^{\Delta \N}$.
 		\end{enumerate}
+		Then we can prove
+		\begin{equation*}
+			\Set \forces \N \lneq B \word{implies} \Sh(P, \neg\neg) \forces \Delta\N \lneq \Delta B
+		\end{equation*}
+		so that
+		\begin{equation*}
+			\Sh(P, \neg\neg) \forces \Delta \N \neq \Delta B \lneq \Omega^{\Delta \N}.
+		\end{equation*}
 		{\bfseries\color{colornote}Disclaimer: several details under the rug!}
 	\end{example}
 \end{frame}
